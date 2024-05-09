@@ -71,3 +71,40 @@ $not: Inverts the effect of a query expression.
 $nor: Joins query clauses with a logical NOR.
 
 {$and: {[condition1, condition2]}, ...}
+
+### Complex Expresssion
+
+1. The $expr operator allow using aggregation expression within a query
+
+2. useful when you need to compare to field from the same document in a more complex manner.
+
+Syntax:: {$expr: {operator: [field, value]} }
+         db.products.find({$expr:{$gt:['$price', 22]}})
+
+### Element Operator
+
+$exists
+$type
+$size
+
+example:
+
+```
+db.users.find({ phone: { $exists: true } });
+db.products.find({ price: { $type: "double" } })
+db.comments.find({ tags: { $size: 3 } });
+
+```
+
+### Projection
+
+db.collecion.find({}, {field1: 1, field2: 2})
+
+- to include specific field, use projection with value 1 for the field you want.
+- to exclude field, use projection with value of 0 for the field you want to exclude.
+- you cannot include exclude field simultaneously in the same question projection.
+
+### Embedded Documents
+
+- query document inside embedded document using dot notation.
+  db.collection.find({"parent.child": value})
