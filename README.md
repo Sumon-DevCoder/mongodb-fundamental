@@ -1,11 +1,19 @@
-Database --> 1.SQL Database : Structured query language and relational database system we can store data with row and column.
-_ type of NoSQL Database : MySQL, PostgreSQL, Oracle, Microsoft SQL etc.
-2.NoSQL Database: non relational database where we can data store and access and it work without row and colums.
-_ type of NoSQL Database : MongoDB, Redis, RavenDB, CouchDB etc.
+# MongoDB Guide
 
-# What is MongoDB ?
+## Introduction
 
-Ans: is a open source document oriented no-sql database management system, cross-platform, and leading NoSQL Database, MongoDB is written C++
+MongoDB is a leading open-source document-oriented NoSQL database management system. It provides a flexible and scalable solution for storing and managing data.
+
+### Types of Databases
+
+1. **SQL Database**:
+
+   - Uses Structured Query Language (SQL) and follows a relational database model.
+   - Examples: MySQL, PostgreSQL, Oracle, Microsoft SQL, etc.
+
+2. **NoSQL Database**:
+   - Non-relational databases that store and access data differently, often without rows and columns.
+   - Examples: MongoDB, Redis, RavenDB, CouchDB, etc.
 
 # Manging database and collection --> we can create database or collection and check databse, delete db or collection
 
@@ -61,3 +69,5 @@ $and: Joins query clauses with a logical AND.
 $or: Joins query clauses with a logical OR.
 $not: Inverts the effect of a query expression.
 $nor: Joins query clauses with a logical NOR.
+
+{$and: {[condition1, condition2]}, ...}
