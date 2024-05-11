@@ -48,7 +48,7 @@ db.data
   })
   .project({ skills: 1 });
 
-// update Document --> kono akta document ar ak ba ar beshi field ke update korte pari $set ar maddome.
+// # update Document --> kono akta document ar ak ba ar beshi field ke update korte pari $set ar maddome.
 db.data.updateOne(
   { _id: ObjectId("6406ad63fc13ae5a40000065") }, // kake updte korbo
   { $set: { age: 36 } } // kon kon field ke update korbo and $set primitive data ok but non-primitive data entrily replace korte chile use korbo.
@@ -60,8 +60,88 @@ db.data.updateOne(
   { $addToSet: { interests: "Playing" } } // notun notun value add korsi array ar modde
 );
 
+// tahole duplicate value add korte parbo $push.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  {
+    $push: { interests: { $each: ["Watching Movies", "Watching Motivation"] } },
+  }
+);
+
+// tahole array ar vitor akadik value set korar jonno $each use korte hobe.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  {
+    $addToSet: {
+      interests: { $each: ["Watching Movies, Watching Motivation"] },
+    },
+  }
+);
+
 // in this way amra array ar modde notunvabe aro akta array add korte parbo
 db.data.updateOne(
   { _id: ObjectId("6406ad63fc13ae5a40000065") },
   { $addToSet: { interests: ["Driving, Drinking"] } }
+);
+
+// $unset --> kono akta field ke remove kore dite pari.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  { $unset: { birthday: "" } } // aikhane "" / 1 use kore dite pari karon 1 mean true bujai.
+);
+
+// $pop --> array ar last position means pison theke sei value ke remove kore dite parbo.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  { $pop: { friends: 1 } }
+);
+
+// $pop --> array ar first position means samner dik theke sei value ke remove kore dite parbo.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  { $pop: { friends: -1 } }
+);
+
+// $pull --> means tene ber kore niya asa that means kono akta field ar specific value ke amra sekhan theke tene ber kre niya aste pari.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  { $pull: { friends: "Tanmoy Parvez" } }
+);
+
+// $putAll --> mean array akadik value ke tene ber kore niya aso.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  {
+    $pullAll: {
+      interests: ["Cooking", "Writing", "Reading", "Coding", "Playing"],
+    },
+  }
+);
+
+// # object ar khetre $set ar use korbo. that means amra chile kono akta object ar nested property ar value change korte pari.
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000065") },
+  { $set: { "name.firstName": "sumon" } }
+);
+
+// # array of object ar property ke modify korbo
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000066"), "skills.name": "RUBY" },
+  {
+    $set: { "skills.$.name": "JAVASCRIPT EXPERT" },
+  }
+);
+
+// # Delete a single document from collection.
+db.data.deleteOne({ _id: ObjectId("6406ad63fc13ae5a40000065") });
+
+// # Delete Collection
+db.posts.drop();
+
+// # $inc --> kono akta value ke increment korte pari
+db.data.updateOne(
+  { _id: ObjectId("6406ad63fc13ae5a40000066") },
+  {
+    $inc: { age: 3 }, // that means tumi koto kore increment korte chachi
+  }
 );
