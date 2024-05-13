@@ -1,8 +1,6 @@
-# MongoDB Guide
-
 ## Introduction
 
-MongoDB is a leading open-source document-oriented NoSQL database management system. It provides a flexible and scalable solution for storing and managing data. > google, facebook, eBay ext
+MongoDB is a leading open-source document-oriented NoSQL database management system. It provides a flexible and scalable solution for storing and managing data. > google, facebook, eBay etc.
 
 > > noSQL = not only SQL and non-relational databases --> real-time-data-processing, high perfomance, flexible data model, Flexible, schemaless. its not following traditional database.
 
@@ -17,10 +15,6 @@ Flexibility - user এর need এবং condition অনুযায়ী website
 - rich ecosystem of Tools, Documentation and Community.
 
 # MongoDB vs Traditional Database
-
-MongoDB and traditional relational databases are both popular choices for storing and managing data in modern applications. However, they have distinct differences in terms of data model, query language, scalability, and performance characteristics.
-
-## Key Differences
 
 - **Data Model**:
 
@@ -170,7 +164,7 @@ $nin: Matches none of the values specified in an array.
 
 for example :
 
-db.data.find({gender:"Female",age: {$gt: 18,$lte:30}}, {age: 1, name: 1, gender: 1}).sort({age:1}) > commad ke bole empicit and;
+db.data.find({gender:"Female",age: {$gt: 18,$lte:30}}, {age: 1, name: 1, gender: 1}).sort({age:1}) > comma ke bole empicit and;
 
 db.data.find({gender:"Female",age: {$in:[18, 20, 22, 24, 26]}, interests:{$in:["Cooking", "Reading"]}}, {age: 1, name: 1, gender: 1, interests:1}).sort({age:1})
 
@@ -199,77 +193,3 @@ $not: Inverts the effect of a query expression.
 $nor: Joins query clauses with a logical NOR.
 
 {$and: {[condition1, condition2]}, ...}
-
-### Complex Expresssion
-
-1. The $expr operator allow using aggregation expression within a query
-
-2. useful when you need to compare to field from the same document in a more complex manner.
-
-Syntax:: {$expr: {operator: [field, value]} }
-         db.products.find({$expr:{$gt:['$price', 22]}})
-
-### Element Operator
-
-$exists
-$type
-$size
-
-example:
-
-```
-db.users.find({ phone: { $exists: true } });
-db.products.find({ price: { $type: "double" } })
-db.comments.find({ tags: { $size: 3 } });
-
-```
-
-### Projection
-
-db.collecion.find({}, {field1: 1, field2: 2})
-
-- to include specific field, use projection with value 1 for the field you want.
-- to exclude field, use projection with value of 0 for the field you want to exclude.
-- you cannot include exclude field simultaneously in the same question projection.
-
-### Embedded Documents
-
-- query document inside embedded document using dot notation.
-  db.collection.find({"parent.child": value})
-
-### Update Operation in MongoDB
-
-- updateOne() and updateMany()
-- removing and renaming field
-- adding, removing items from array
-- updating embaded documents
-
-### What are Indexs
-
-Indexes in MongoDB are data structures that store a small portion of the collection's data in an easy-to-traverse form. They improve the speed of data retrieval operations on a database by providing efficient access paths to data.
-
-benefit of indexes
--faster queries
--Efficient sorting
--improve aggregation
-
-> Managing Index
-
-db.products.createIndex({field: 1}) --> assending orderwase
-db.collection.getIndexes()
-db.collection.dropIndex({feild: 1})
-
-> unique and text index
-> db.products.createIndex({field: 1}, {unique:true}) -->
-> db.products.createIndex({field: "text"},) -->
-
-> When not use index ?
-
-- Indexes on Rarely Used field.
-- indexes smaill collection
-
-### Aggregation
-
-Aggregation is a process of performing transformation on documents combininig them to produce computed result
-
-> Pipeline

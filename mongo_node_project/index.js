@@ -1,5 +1,3 @@
-// $And, $Or, Implicit Vs Explicit
-
 // Explicit $and --> sobgula condition fulfill korba jara sei data object gula daw.
 db.data
   .find({
@@ -32,6 +30,7 @@ db.data.find({ age: { $type: "string" } }).project({ age: 1 });
 
 // $size --> amra chile kono akta array empty array ase kina check korte pari and konogula value ola array chai seta nite pari.
 db.data.find({ friends: { $size: 0 } }).project({ friends: 1 });
+db.data.find({ skills: { $eq: [] } }).project({ skills: 1 }); // to get empty array ola field.
 
 //  kono array ar position ar madome o amora sei field ta pete pari.
 db.data.find({ "interests.2": "Cooking" }).project({ interests: 1 });
