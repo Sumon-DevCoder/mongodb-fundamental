@@ -1,9 +1,72 @@
-// Explicit $and --> sobgula condition fulfill korba jara sei data object gula daw.
+//  have to read mongodb documentation ✔✔✔
+
+// db.collection.insertOne() --> Inserts a single document into a collection.
+// db.collection.insertMany() --> Inserts multiple documents into a collection.
+
+// db.collection.find() when used with the upsert: true option.
+// db.collection.findOne() when used with the upsert: true option.
+// db.collection.updateOne() when used with the upsert: true option.
+// db.collection.updateMany() when used with the upsert: true option.
+// db.collection.findAndModify() when used with the upsert: true option.
+// db.collection.findOneAndUpdate() when used with the upsert: true option.
+// db.collection.findOneAndReplace() when used with the upsert: true option.
+// db.collection.bulkWrite().
+
+// In-Depth Exploration of MongoDB Queries
+// MongoDB is a NoSQL database that uses a flexible schema design, allowing data to be stored in JSON-like documents. Here’s an in-depth look at how MongoDB queries work and how to effectively use them.
+
+// 1. Basics of MongoDB Queries
+// MongoDB queries are written in JavaScript-like syntax.
+// They are executed on collections, which are analogous to tables in relational databases.
+// Common methods:
+// .find() - Retrieves documents.
+// .insertOne() / .insertMany() - Adds new documents.
+// .updateOne() / .updateMany() - Modifies existing documents.
+// .deleteOne() / .deleteMany() - Removes documents.
+
+// 2. Query Structure
+// A MongoDB query typically has three components:
+// Collection Method: Specifies the action, e.g., find, update.
+// Filter Document: Specifies the selection criteria.
+// Projection or Options: Specifies the fields to return or modifies query behavior.
+// example:
+db.collection("products").find(
+  { price: { $gt: 20 } }, // Filter document
+  { name: 1, price: 1 } // Projection (only `name` and `price` fields are returned) this is field filtering...
+);
+
+// 3. Query Operators
+// MongoDB provides comparison, logical, and element operators to build powerful queries.
+
+// Comparison Operators
+// Operator	Description	Example
+// $eq	Equal	{ price: { $eq: 10 } }
+// $ne	Not equal	{ status: { $ne: 'shipped' } }
+// $gt	Greater than	{ age: { $gt: 18 } }
+// $gte	Greater than or equal to	{ age: { $gte: 18 } }
+// $lt	Less than	{ price: { $lt: 100 } }
+// $lte	Less than or equal to	{ price: { $lte: 100 } }
+// $in	Matches any in array	{ category: { $in: ['Books', 'Toys'] } }
+// $nin	Matches none in array	{ status: { $nin: ['completed'] } }
+
+// Logical Operators
+// Operator	Description	Example
+// $and	Combines conditions with AND	{ $and: [{ age: { $gte: 18 } }, { name: 'John' }] }
+// $or	Combines conditions with OR	{ $or: [{ status: 'shipped' }, { price: { $lte: 20 } }] }
+// $not	Negates a condition	{ price: { $not: { $gt: 100 } } }
+// $nor	Combines conditions, none must match	{ $nor: [{ price: { $gte: 50 } }, { status: 'shipped' }] }
+
+// Element Operators
+// Operator	Description	Example
+// $exists	Checks for field existence	{ phone: { $exists: true } }
+// $type	Checks field type	{ age: { $type: 'number' } }
+
+// ❤ Explicit $and --> sobgula condition fulfill korba jara sei data object gula daw.
 db.data
   .find({
     $and: [{ gender: "Female" }, { age: { $ne: 15 } }, { age: { $lte: 30 } }],
   })
-  .project({ age: 1, gender: 1 })
+  .project({ age: 1, gender: 1 }) // this is field filtering to return value
   .sort({ age: 1 });
 
 // Explicit $or --> jokono akta condition fulfill  korlei sei data dau.
