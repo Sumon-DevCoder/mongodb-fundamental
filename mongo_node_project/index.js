@@ -61,6 +61,40 @@ db.collection("products").find(
 // $exists	Checks for field existence	{ phone: { $exists: true } }
 // $type	Checks field type	{ age: { $type: 'number' } }
 
+// 4. Aggregation Framework
+// The aggregation framework processes data records and returns computed results. It's used for data transformation and analytics.
+
+// Example Pipeline:
+// javascript
+// Copy code
+// db.orders.aggregate([
+//    { $match: { status: 'shipped' } },              // Stage 1: Match documents
+//    { $group: { _id: "$customerId", total: { $sum: "$price" } } }, // Stage 2: Grouping
+//    { $sort: { total: -1 } }                        // Stage 3: Sort by total descending
+// ]);
+// Common Aggregation Stages:
+// $match: Filters documents.
+// $group: Groups documents.
+// $project: Shapes the output.
+// $sort: Sorts the results.
+// $limit / $skip: Pagination.
+
+// 5. Indexing for Optimized Queries
+// Indexes speed up query execution by reducing the amount of data MongoDB needs to scan.
+// Common index types:
+// Single Field Index: { name: 1 } (ascending).
+// Compound Index: { category: 1, price: -1 }.
+// Text Index: Enables full-text search on strings.
+// example:
+db.collection("products").getIndexes();
+db.collection("products").createIndex({ name: 1 });
+
+// 9. Advanced Features
+// Geospatial Queries: For finding locations or places nearby.
+// Full-Text Search: Using $text and $search.
+// Change Streams: For real-time notifications on database changes.
+// Sharding: Distributing data across multiple servers for scalability.
+
 // ❤ Explicit $and --> sobgula condition fulfill korba jara sei data object gula daw.
 db.data
   .find({
